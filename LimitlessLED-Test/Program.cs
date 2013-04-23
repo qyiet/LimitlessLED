@@ -40,9 +40,9 @@ namespace LimitlessLED_Test
     //Strobe mode:  Flash the lights till a key is pressed
      while (!Console.KeyAvailable)
             {
-                    udpClient.Send(new byte[] {0x3B, 0x0, 0x55 }, 3);
+                    udpClient.Send(LimitlessLedCommands.Group1AllOff, 3);
                     System.Threading.Thread.Sleep(100);
-                    udpClient.Send(new byte[] { 0x38, 0x0, 0x55 }, 3);
+                    udpClient.Send(LimitlessLedCommands.Group1AllOn, 3);
                     System.Threading.Thread.Sleep(100);
              }
 
