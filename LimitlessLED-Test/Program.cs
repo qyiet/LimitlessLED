@@ -20,7 +20,7 @@ namespace LimitlessLED_Test
 
             if (args.Length == 0)
             {
-                Console.WriteLine("There are hidden command line stuff");
+                Console.WriteLine("There are hidden command line stuffs");
             }
 
             else if (args[0] == "flash")
