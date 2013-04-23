@@ -15,8 +15,22 @@ namespace LimitlessLED_Test
             
             //initialize variables
             string bridgeipAddress = ConfigurationManager.AppSettings["ip"];
-         
                     
+            //Process Command Line Arguements
+
+            if (args.Length == 0)
+            {
+                Console.WriteLine("There are hidden command line stuff");
+            }
+
+            else if (args[0] == "flash")
+            {
+                Console.WriteLine("Flash, ahhhaAHHHHAaaahhh");
+            }
+            else if (args[0] == "blink")
+            {
+                Console.WriteLine("Not as cool as flash");
+            }
     
 
             //Connect to LimitlessLED Wifi Bridge Receiver
