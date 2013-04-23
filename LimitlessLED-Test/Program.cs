@@ -11,13 +11,19 @@ namespace LimitlessLED_Test
     {
         static void Main(string[] args)
         {
-            //initialize variables
-            string limitlessLEDBridgeipAddress = ConfigurationManager.AppSettings["ip"];
-         
+            //This is control code for the LimitlessLED light bulbs.  It's currently pretty much under first draft testing.
             
+            //initialize variables
+            string bridgeipAddress = ConfigurationManager.AppSettings["ip"];
+         
+                    
+    
+
             //Connect to LimitlessLED Wifi Bridge Receiver
-            System.Net.Sockets.UdpClient udpClient = new System.Net.Sockets.UdpClient(limitlessLEDBridgeipAddress, 50000);
-/*
+            System.Net.Sockets.UdpClient udpClient = new System.Net.Sockets.UdpClient(bridgeipAddress, 50000);
+        
+            
+        /*  Removed to allow testing of strobe mode below
             //Send hex command 38 which is "Turn Group1 LED lights ON" yes it remembers the last brightness and color, each LED contains a memory chip.
             udpClient.Send(new byte[] {
                                              0x38,
@@ -29,7 +35,9 @@ namespace LimitlessLED_Test
             //Close Connection
             udpClient.Close();
         */
-         
+     
+    
+    //Strobe mode:  Flash the lights till a key is pressed
      while (!Console.KeyAvailable)
             {
                     udpClient.Send(new byte[] {0x3B, 0x0, 0x55 }, 3);

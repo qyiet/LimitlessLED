@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LimitlessLED_Test
 {
-    class limitlessLEDcommands
+    class LimitlessLeDcommands
     {
 
     }
