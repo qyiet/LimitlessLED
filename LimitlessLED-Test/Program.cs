@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Configuration;
 
 namespace LimitlessLED_Test
 {
@@ -50,10 +45,8 @@ namespace LimitlessLED_Test
                         }
                 }
             }
-            else
-            {
+            
             Console.WriteLine("There are input arguments required.  I really should put something here to explain them for you");
-            }
         }
     }
 }

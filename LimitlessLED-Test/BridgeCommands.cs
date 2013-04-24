@@ -1,6 +1,4 @@
-﻿
-
-namespace LimitlessLED_Test
+﻿namespace LimitlessLED_Test
 {
     /// <summary>
     /// As documented at:

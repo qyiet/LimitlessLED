@@ -1,24 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Configuration;
+using System.Net.Sockets;
+using System.Threading;
 
 namespace LimitlessLED_Test
 {
     class UserCommands
     {
         // Connect to bridge
-        static string bridgeipAddress = ConfigurationManager.AppSettings["ip"];
-        static System.Net.Sockets.UdpClient udpClient = new System.Net.Sockets.UdpClient(bridgeipAddress, 50000);
+        static readonly string BridgeIpAddress = ConfigurationManager.AppSettings["ip"];
+        static readonly UdpClient UdpClient = new UdpClient(BridgeIpAddress, 50000);
 
         /// <summary>
         /// Shortcut to send UDP commands to the wifi bridge
         /// </summary>
         static void LedBridge(byte[] hexCommand)
         {
-            udpClient.Send(hexCommand, 3);
+            UdpClient.Send(hexCommand, 3);
         }
 
         /// <summary>
@@ -28,7 +26,7 @@ namespace LimitlessLED_Test
         public static void Test()
         {
             LedBridge(BridgeCommands.Group4On);
-            System.Threading.Thread.Sleep(100);
+            Thread.Sleep(100);
             LedBridge(BridgeCommands.Group4Full);
         }
 
@@ -42,9 +40,9 @@ namespace LimitlessLED_Test
             while (!Console.KeyAvailable)
             {
                 LedBridge(BridgeCommands.Group1Off);
-                System.Threading.Thread.Sleep(100);
+                Thread.Sleep(100);
                 LedBridge(BridgeCommands.Group1On);
-                System.Threading.Thread.Sleep(100);
+                Thread.Sleep(100);
             }
         }
 
@@ -59,14 +57,14 @@ namespace LimitlessLED_Test
 
             // Ensure group one is on, and selected by the wifi bridge
             LedBridge(BridgeCommands.Group1On);
-            System.Threading.Thread.Sleep(150);
+            Thread.Sleep(150);
 
             // Fade selected group down 10 steps  
             for (int i = 1; i < 10; i++)
             {
                 Console.WriteLine("This is dimming level " + i);
                 LedBridge(BridgeCommands.BrightnessDown);
-                System.Threading.Thread.Sleep(1000);
+                Thread.Sleep(1000);
             } 
         }
 
@@ -80,14 +78,14 @@ namespace LimitlessLED_Test
             
             // Ensure group one is on, and selected by the wifi bridge
             LedBridge(BridgeCommands.Group1On);
-            System.Threading.Thread.Sleep(150);
+            Thread.Sleep(150);
        
             // Fade selected group up 10 steps  
             for (int i = 1; i < 10; i++)
             {
                 Console.WriteLine("This is dimming level " + (10 - i));
                 LedBridge(BridgeCommands.BrightnessUp);
-                System.Threading.Thread.Sleep(1000);
+                Thread.Sleep(1000);
             }
         }
 
@@ -113,7 +111,7 @@ namespace LimitlessLED_Test
         public static void AllNightMode()
         {
             LedBridge(BridgeCommands.AllOff);
-            System.Threading.Thread.Sleep(101);  //aparently 100ms isn't enough, I need 101 
+            Thread.Sleep(101);  //aparently 100ms isn't enough, I need 101 
             LedBridge(BridgeCommands.AllNight);
         }
     }
