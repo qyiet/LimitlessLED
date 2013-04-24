@@ -40,6 +40,8 @@ namespace LimitlessLED_Test
                                 case "allNightMode":
                                 case "allnightmode": { UserCommands.AllNightMode(); return; }
 
+                                case         "test": { UserCommands.Test(); return; } //for testing experimental code
+                                
                                 default:
                                     {   //Tell the user we have no idea WTF they wanted
                                         Console.WriteLine("I have no idea what you wanted me to do");
