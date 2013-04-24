@@ -20,8 +20,8 @@ namespace LimitlessLED_Test
         }
 
         /// <summary>
-        /// Used for testing individual commands, once
-        /// Debugging is complete
+        /// Used for testing individual commands
+        /// Will be removed when debugging is complete
         /// </summary>
         public static void Test()
         {
@@ -52,7 +52,6 @@ namespace LimitlessLED_Test
         /// </summary>
         public static void FadeDown()
         {
-            // Fade  group 1 down
             Console.WriteLine("Not as cool as flash");
 
             // Ensure group one is on, and selected by the wifi bridge
@@ -90,7 +89,7 @@ namespace LimitlessLED_Test
         }
 
         /// <summary>
-        /// Turn off all white lights
+        /// Turn all white lights off
         /// </summary>
         public static void AllOff()
         {
@@ -98,7 +97,7 @@ namespace LimitlessLED_Test
         }
 
         /// <summary>
-        /// Turn off all the lights
+        /// Turn all white lights on
         /// </summary>
         public static void AllOn()
         {
@@ -111,7 +110,7 @@ namespace LimitlessLED_Test
         public static void AllNightMode()
         {
             LedBridge(BridgeCommands.AllOff);
-            Thread.Sleep(101);  //aparently 100ms isn't enough, I need 101 
+            Thread.Sleep(101);  // aparently 100ms isn't enough, I need 101 
             LedBridge(BridgeCommands.AllNight);
         }
     }
