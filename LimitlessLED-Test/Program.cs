@@ -10,13 +10,12 @@ namespace LimitlessLED_Test
     class Program
     {
         /// <summary>
-        ///  //This is control code for the LimitlessLED light bulbs.  
-        ///  It's currently pretty much under first draft testing.
+        /// This is control code for the LimitlessLED light bulbs.  It's currently pretty much under first draft testing.
         /// </summary>
         /// <param name="args"></param>
         static void Main(string[] args)
-        {       
-            //Process command line arguements
+        {
+            //Process Command Line Arguments
             if (args.Length != 0)
             {
                 switch (args[0])
@@ -43,14 +42,18 @@ namespace LimitlessLED_Test
                     case "allnightmode": { UserCommands.AllNightMode(); return; }
 
                     case         "test": { UserCommands.Test(); return; } //for testing experimental code
-                                
-                    default: { Console.WriteLine("I have no idea what you wanted me to do"); return;} //Tell the user we have no idea WTF they wanted
+
+                    default:
+                        {   //Tell the user we have no idea WTF they wanted
+                            Console.WriteLine("I have no idea what you wanted me to do");
+                            return;
+                        }
                 }
             }
             else
             {
             Console.WriteLine("There are input arguments required.  I really should put something here to explain them for you");
-            }            
+            }
         }
     }
 }
