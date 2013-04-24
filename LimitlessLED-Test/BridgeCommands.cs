@@ -8,8 +8,8 @@ namespace LimitlessLED_Test
     /// </summary>
     class BridgeCommands
     {
-        //commands
-        //White LEDs
+        // Commands
+        // White LEDs
         public static byte[] AllOn          = new byte[] { 0x35, 0x0, 0x55 };
         public static byte[] AllOff         = new byte[] { 0x39, 0x0, 0x55 };
         public static byte[] AllNight       = new byte[] { 0xB9, 0x0, 0x55 };
@@ -40,6 +40,5 @@ namespace LimitlessLED_Test
         public static byte[] Group4Off      = new byte[] { 0x36, 0x0, 0x55 };
         public static byte[] Group4Night    = new byte[] { 0xB6, 0x0, 0x55 };
         public static byte[] Group4Full     = new byte[] { 0xB6, 0x0, 0x55 };
-        
     }
 }
