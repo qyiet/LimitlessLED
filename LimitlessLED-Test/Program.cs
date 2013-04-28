@@ -21,6 +21,10 @@ namespace LimitlessLED_Test
                     case        "allOn":
                     case        "allon": { UserCommands.AllOn(); return; }
 
+                    case     "brighten": { UserCommands.Brighten(); return; }
+
+                    case          "dim": { UserCommands.Dim(); return; }
+
                     case "allNightMode":
                     case "allnightmode": { UserCommands.AllNightMode(); return; }
 
@@ -31,12 +35,10 @@ namespace LimitlessLED_Test
                     case        "blink": { UserCommands.StrobeMode(); return; }
 
                     case       "fadeUp":
-                    case       "fadeup":
-                    case     "brighten": { UserCommands.FadeUp(); return; }
+                    case       "fadeup": { UserCommands.FadeUp(); return; }
 
                     case     "fadeDown":
-                    case     "fadedown":
-                    case          "dim": { UserCommands.FadeDown(); return; }
+                    case     "fadedown": { UserCommands.FadeDown(); return; }
 
                     default: { Console.WriteLine("I have no idea what you wanted me to do"); return; } // Tell the user we have no idea WTF they wanted
                 }

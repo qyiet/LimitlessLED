@@ -25,9 +25,7 @@ namespace LimitlessLED_Test
         /// </summary>
         public static void Test()
         {
-            LedBridge(BridgeCommands.Group4On);
-            Thread.Sleep(100);
-            LedBridge(BridgeCommands.Group4Full);
+            LedBridge(BridgeCommands.Group1On);
         }
 
         /// <summary>
@@ -112,6 +110,19 @@ namespace LimitlessLED_Test
             LedBridge(BridgeCommands.AllOff);
             Thread.Sleep(101);  // aparently 100ms isn't enough, I need 101 
             LedBridge(BridgeCommands.AllNight);
+        }
+
+        /// <summary>
+        ///  Brighten the last selected group
+        /// </summary>
+        public static void Brighten()
+        {
+            LedBridge(BridgeCommands.BrightnessUp);
+        }
+
+        public static void Dim()
+        {
+            LedBridge(BridgeCommands.BrightnessDown);
         }
     }
 }
