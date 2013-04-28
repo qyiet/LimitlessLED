@@ -37,6 +37,6 @@
         public static byte[] Group4On       = new byte[] { 0x32, 0x0, 0x55 };
         public static byte[] Group4Off      = new byte[] { 0x36, 0x0, 0x55 };
         public static byte[] Group4Night    = new byte[] { 0xB6, 0x0, 0x55 };
-        public static byte[] Group4Full     = new byte[] { 0xB6, 0x0, 0x55 };
+        public static byte[] Group4Full     = new byte[] { 0xB2, 0x0, 0x55 };
     }
 }

@@ -52,7 +52,7 @@ namespace LimitlessLED_Test
         /// </summary>
         public static void FadeDown()
         {
-            Console.WriteLine("Not as cool as flash");
+            Console.WriteLine("Dimming Group One");
 
             // Ensure group one is on, and selected by the wifi bridge
             LedBridge(BridgeCommands.Group1On);
@@ -73,7 +73,7 @@ namespace LimitlessLED_Test
         /// </summary>
         public static void FadeUp()
         {
-             Console.WriteLine("Not as cool as flash");
+             Console.WriteLine("Brightening Group One");
             
             // Ensure group one is on, and selected by the wifi bridge
             LedBridge(BridgeCommands.Group1On);
