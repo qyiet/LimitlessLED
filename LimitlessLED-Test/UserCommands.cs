@@ -203,5 +203,27 @@ namespace LimitlessLED_Test
         {
             LedBridge(BridgeCommands.Group4Off);
         }
+
+        /// <summary>
+        /// Turns on all lights to minimum brightness, then slowly increases the brightness over 10 min
+        /// </summary>
+        public static void WakeUpCall()
+        {
+            // Turn on all lights and then dim them to minimum as fast as possible
+            AllOn();
+            Thread.Sleep(100);
+            for (int i = 0; i < 10; i++)
+            {
+                Dim();
+                Thread.Sleep(100);
+            }
+        
+            // Slowly increase brightness to max over the next 10 min
+            for (int i = 0; i < 10; i++)
+            {
+                Thread.Sleep(60000);
+                Brighten();
+            }      
+        }
     }
 }
