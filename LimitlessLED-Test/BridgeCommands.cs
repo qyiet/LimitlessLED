@@ -38,5 +38,19 @@
         public static byte[] Group4Off      = new byte[] { 0x36, 0x0, 0x55 };
         public static byte[] Group4Night    = new byte[] { 0xB6, 0x0, 0x55 };
         public static byte[] Group4Full     = new byte[] { 0xB2, 0x0, 0x55 };
+
+        // RGB LEDs
+        public static byte[] RGBOn             = new byte[] { 0x22, 0x0, 0x55 };
+        public static byte[] RGBOff            = new byte[] { 0x21, 0x0, 0x55 };
+        
+        public static byte[] RGBBrightnessUp   = new byte[] { 0x23, 0x0, 0x55 };
+        public static byte[] RGBBrightnessDown = new byte[] { 0x24, 0x0, 0x55 };
+        
+        public static byte[] RGBSpeedUp        = new byte[] { 0x25, 0x0, 0x55 };
+        public static byte[] RGBSpeedDown      = new byte[] { 0x26, 0x0, 0x55 };
+        
+        public static byte[] RGBDiscoNext      = new byte[] { 0x27, 0x0, 0x55 };
+        public static byte[] RGBDiscoLast      = new byte[] { 0x28, 0x0, 0x55 };
+
     }
 }
