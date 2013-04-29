@@ -120,9 +120,56 @@ namespace LimitlessLED_Test
             LedBridge(BridgeCommands.BrightnessUp);
         }
 
+        /// <summary>
+        /// Dim the last selected group
+        /// </summary>
         public static void Dim()
         {
             LedBridge(BridgeCommands.BrightnessDown);
         }
+
+        /// <summary>
+        /// Set Group 4 to Night mode 
+        /// (takes 100ms as it requires 2 commands to be sent)
+        /// </summary>       
+        public static void Group4NightMode()
+        {
+            LedBridge(BridgeCommands.Group4Off);
+            Thread.Sleep(101);
+            LedBridge(BridgeCommands.Group4Night);
+        }
+
+        /// <summary>
+        /// Set Group 3 to Night mode 
+        /// (takes 100ms as it requires 2 commands to be sent)
+        /// </summary>
+        public static void Group3NightMode()
+        {
+            LedBridge(BridgeCommands.Group3Off);
+            Thread.Sleep(101);
+            LedBridge(BridgeCommands.Group3Night);
+        }
+
+        /// <summary>
+        /// Set Group 2 to Night mode 
+        /// (takes 100ms as it requires 2 commands to be sent)
+        /// </summary>
+        public static void Group2NightMode()
+        {
+            LedBridge(BridgeCommands.Group2Off);
+            Thread.Sleep(101);
+            LedBridge(BridgeCommands.Group2Night);
+        }
+
+        /// <summary>
+        /// Set Group 1 to Night mode 
+        /// (takes 100ms as it requires 2 commands to be sent)
+        /// </summary>
+        public static void Group1NightMode()
+        {
+            LedBridge(BridgeCommands.Group1Off);
+            Thread.Sleep(101);
+            LedBridge(BridgeCommands.Group1Night);
+        }       
     }
 }
