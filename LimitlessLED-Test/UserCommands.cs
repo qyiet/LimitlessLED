@@ -170,6 +170,38 @@ namespace LimitlessLED_Test
             LedBridge(BridgeCommands.Group1Off);
             Thread.Sleep(101);
             LedBridge(BridgeCommands.Group1Night);
-        }       
+        }
+
+        /// <summary>
+        /// Turn group 1 off
+        /// </summary>
+        public static void Group1Off()
+        {
+            LedBridge(BridgeCommands.Group1Off);
+        }
+        
+        /// <summary>
+        /// Turn group 2 off
+        /// </summary>
+        public static void Group2Off()
+        {
+            LedBridge(BridgeCommands.Group2Off);
+        }
+        
+        /// <summary>
+        /// Turn group 3 off
+        /// </summary>
+        public static void Group3Off()
+        {
+            LedBridge(BridgeCommands.Group3Off);
+        }
+        
+        /// <summary>
+        /// Turn group 4 off
+        /// </summary>
+        public static void Group4Off()
+        {
+            LedBridge(BridgeCommands.Group4Off);
+        }
     }
 }
