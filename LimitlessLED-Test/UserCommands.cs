@@ -25,9 +25,11 @@ namespace LimitlessLED_Test
         /// </summary>
         public static void Test()
         {
-            //     RGBColour(255);   
-             RGBPrevMode();
+            AllOff();
             Thread.Sleep(100);
+            //RGBOff();
+
+            WakeUpCall();
         }
 
         /// <summary>
@@ -211,20 +213,39 @@ namespace LimitlessLED_Test
         /// </summary>
         public static void WakeUpCall()
         {
-            // Turn on all lights and then dim them to minimum as fast as possible
+            // Turn on White lights and then dim them to minimum as fast as possible
             AllOn();
-            Thread.Sleep(100);
+            Thread.Sleep(100);         
             for (int i = 0; i < 10; i++)
             {
                 Dim();
                 Thread.Sleep(100);
             }
-        
+
+            // Turn on the RGB Lights, set them to white and then dim them to minimum as fast as possible
+            RGBOn();
+            Thread.Sleep(100);
+            RGBPrevMode();
+            Thread.Sleep(100);
+            for (int i = 0; i < 10; i++)
+            {
+                RGBDim();
+                Thread.Sleep(100);
+            }
+                    
             // Slowly increase brightness to max over the next 10 min
             for (int i = 0; i < 10; i++)
             {
                 Thread.Sleep(60000);
+                AllOn();
+                Thread.Sleep(100);
                 Brighten();
+                Thread.Sleep(100);
+                RGBOn();
+                Thread.Sleep(100);
+                RGBPrevMode();
+                Thread.Sleep(100);
+                RGBBrighten();
             }
         }
 
