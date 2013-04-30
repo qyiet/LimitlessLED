@@ -25,7 +25,9 @@ namespace LimitlessLED_Test
         /// </summary>
         public static void Test()
         {
-            LedBridge(BridgeCommands.Group1On);
+            //     RGBColour(255);   
+             RGBPrevMode();
+            Thread.Sleep(100);
         }
 
         /// <summary>
@@ -223,7 +225,88 @@ namespace LimitlessLED_Test
             {
                 Thread.Sleep(60000);
                 Brighten();
-            }      
+            }
+        }
+
+        /// <summary>
+        /// Turn on RGB LED Bulbs
+        /// </summary>
+        public static void RGBOn()
+        {
+            LedBridge(BridgeCommands.RGBOn);
+        }
+
+        public static void RGBOff()
+        {
+            LedBridge(BridgeCommands.RGBOff);
+        }
+
+
+        /// <summary>
+        /// Will set the RGB bulbs to the colour specified between 0 and 255
+        /// </summary>
+        /// <param name="colour"></param>
+        public static void RGBColour(int colour)
+        {
+            // Set invalid colours to 0
+            if (colour < 0 || colour > 256) { colour = 0; } 
+            
+            // Get generic colour command
+            var hexCommand = (byte[])BridgeCommands.RGBColour.Clone();
+           
+            // Set to requested colour
+            hexCommand[1] = (byte)colour;
+            
+            // Send command to bridge;
+            UdpClient.Send(hexCommand, 3);
+        }
+        
+        /// <summary>
+        /// Set Disco Mode to next mode
+        /// </summary>
+        public static void RGBNextMode()
+        {
+            LedBridge(BridgeCommands.RGBDiscoNext);
+        }
+
+        /// <summary>
+        /// Set Disco Mode to previous mode
+        /// </summary>
+        public static void RGBPrevMode()
+        {
+            LedBridge(BridgeCommands.RGBDiscoLast);
+        }
+
+        /// <summary>
+        /// Brighten RGB Lights
+        /// </summary>
+        public static void RGBBrighten()
+        {
+            LedBridge(BridgeCommands.RGBBrightnessUp);
+        }
+
+        /// <summary>
+        /// Dim the RGB Lights
+        /// </summary>
+        public static void RGBDim()
+        {
+            LedBridge(BridgeCommands.RGBBrightnessDown);
+        }
+
+        /// <summary>
+        /// Increase the speed of the Colour LED's disco mode
+        /// </summary>
+        public static void RGBSpeedUp()
+        {
+            LedBridge(BridgeCommands.RGBSpeedUp);
+        }
+
+        /// <summary>
+        /// Decrease the speed of the Colour LED's Disco mode
+        /// </summary>
+        public static void RGBSpeedDown()
+        {
+            LedBridge(BridgeCommands.RGBSpeedDown);
         }
     }
 }

@@ -52,6 +52,9 @@ namespace LimitlessLED_Test
 
                     case   "wakeupcall": { UserCommands.WakeUpCall(); return; }
 
+                    case        "rgbon": { UserCommands.RGBOn(); return; }
+                    case       "rgboff": { UserCommands.RGBOff(); return; }
+
                     default: { Console.WriteLine("I have no idea what you wanted me to do"); return; } // Tell the user we have no idea WTF they wanted
                 }
             }         

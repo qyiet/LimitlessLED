@@ -52,5 +52,7 @@
         public static byte[] RGBDiscoNext      = new byte[] { 0x27, 0x0, 0x55 };
         public static byte[] RGBDiscoLast      = new byte[] { 0x28, 0x0, 0x55 };
 
+        public static byte[] RGBColour         = new byte[] { 0x20, 0x0, 0x55 };
+
     }
 }
