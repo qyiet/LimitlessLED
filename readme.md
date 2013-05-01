@@ -18,9 +18,11 @@ Oh soo many things.  These are the high prioriy ones.
 	* Write functions for colour led remote buttons
 	* Add command line arguments for each of the remote buttons
 * Add command line option for defining the bridge IP address
+* Add command line option for defining the bridge IP port (for people who change it for reasons unknown)
 * Move fancy and and user defined functions to seperate class (eg WakeUpCall, and Strobe)
 * Move the core functions commands and functions to a DLL so the code can be used in other applications
 * Replace the simple switch-case for interperting command line arguements
+
 
 ## Contributions
 
