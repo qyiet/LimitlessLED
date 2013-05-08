@@ -215,22 +215,22 @@ namespace LimitlessLED_Test
         {
             // Turn on White lights and then dim them to minimum as fast as possible
             AllOn();
-            Thread.Sleep(100);         
+            Thread.Sleep(101);         
             for (int i = 0; i < 10; i++)
             {
                 Dim();
-                Thread.Sleep(100);
+                Thread.Sleep(101);
             }
 
             // Turn on the RGB Lights, set them to white and then dim them to minimum as fast as possible
             RGBOn();
-            Thread.Sleep(100);
+            Thread.Sleep(101);
             RGBPrevMode();
-            Thread.Sleep(100);
+            Thread.Sleep(101);
             for (int i = 0; i < 10; i++)
             {
                 RGBDim();
-                Thread.Sleep(100);
+                Thread.Sleep(101);
             }
                     
             // Slowly increase brightness to max over the next 10 min
@@ -238,13 +238,13 @@ namespace LimitlessLED_Test
             {
                 Thread.Sleep(60000);
                 AllOn();
-                Thread.Sleep(100);
+                Thread.Sleep(101);
                 Brighten();
-                Thread.Sleep(100);
+                Thread.Sleep(101);
                 RGBOn();
-                Thread.Sleep(100);
+                Thread.Sleep(101);
                 RGBPrevMode();
-                Thread.Sleep(100);
+                Thread.Sleep(101);
                 RGBBrighten();
             }
         }
@@ -257,6 +257,9 @@ namespace LimitlessLED_Test
             LedBridge(BridgeCommands.RGBOn);
         }
 
+        /// <summary>
+        /// Turn off the RGB Bulbs
+        /// </summary>
         public static void RGBOff()
         {
             LedBridge(BridgeCommands.RGBOff);
