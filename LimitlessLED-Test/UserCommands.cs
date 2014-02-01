@@ -9,7 +9,7 @@ namespace LimitlessLED_Test
     {
         // Connect to bridge
         static readonly string BridgeIpAddress = ConfigurationManager.AppSettings["ip"];
-        static readonly UdpClient UdpClient = new UdpClient(BridgeIpAddress, 50000);
+        static readonly UdpClient UdpClient = new UdpClient(BridgeIpAddress, 8899);
 
         /// <summary>
         /// Shortcut to send UDP commands to the wifi bridge
@@ -29,7 +29,7 @@ namespace LimitlessLED_Test
             Thread.Sleep(100);
             //RGBOff();
 
-            WakeUpCall();
+            WakeUpCall("");
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace LimitlessLED_Test
         /// Flash the lights till a key is pressed 
         /// </summary>
         public static void StrobeMode()
-        {   
+        {
             Console.WriteLine("Starting Strobe mode, press any key to stop");
             while (!Console.KeyAvailable)
             {
@@ -45,6 +45,28 @@ namespace LimitlessLED_Test
                 Thread.Sleep(100);
                 LedBridge(BridgeCommands.Group1On);
                 Thread.Sleep(100);
+            }
+        }
+
+        public static void Flash(string times)
+        {
+            Console.WriteLine("Flashy Flashy!");
+            for (int i = 0; i < int.Parse(times); i++)
+            {
+                LedBridge(BridgeCommands.AllOff);
+                Thread.Sleep(400);
+                LedBridge(BridgeCommands.AllOn);
+                Thread.Sleep(400);
+            }
+        }
+
+        public static void TempMax()
+        {
+            Console.WriteLine("Yellowest light you ever seen, coming right up!");
+            for (int i = 0; i < 10; i++)
+            {
+                LedBridge(BridgeCommands.ColorTempUp);
+                Thread.Sleep(30);
             }
         }
 
@@ -211,8 +233,20 @@ namespace LimitlessLED_Test
         /// <summary>
         /// Turns on all lights to minimum brightness, then slowly increases the brightness over 10 min
         /// </summary>
-        public static void WakeUpCall()
+        public static void WakeUpCall(string timeString)
         {
+            if (timeString == "") timeString = DateTime.Now.ToString("hh:mm");
+            DateTime time = DateTime.Parse(timeString);
+            while (time.CompareTo(DateTime.Now) < 0)
+            {
+                time = time.AddDays(1);
+            }
+            Console.Write("Wake up call at: ");
+            Console.WriteLine(time);
+            while (time.CompareTo(DateTime.Now) > 0)
+            {
+                Thread.Sleep(60000); //wait for a minute
+            }
             // Turn on White lights and then dim them to minimum as fast as possible
             AllOn();
             Thread.Sleep(101);         
@@ -332,5 +366,6 @@ namespace LimitlessLED_Test
         {
             LedBridge(BridgeCommands.RGBSpeedDown);
         }
+
     }
 }
