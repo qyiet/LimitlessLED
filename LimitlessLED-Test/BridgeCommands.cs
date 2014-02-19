@@ -34,7 +34,6 @@
         public static byte[] DiscoSpeedDown = new byte[] { 0x43, 0x0, 0x55 };
         
         public static byte[] DiscoNext      = new byte[] { 0x4D, 0x0, 0x55 };
-        public static byte[] DiscoLast      = new byte[] { 0x28, 0x0, 0x55 };
 
         public static byte[] RGBColour      = new byte[] { 0x20, 0x0, 0x55 };
 

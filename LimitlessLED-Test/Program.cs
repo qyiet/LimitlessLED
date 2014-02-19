@@ -10,45 +10,73 @@ namespace LimitlessLED_Test
         /// <param name="args"></param>
         static void Main(string[] args)
         {
+            if (Properties.Settings.Default.IP == "")
+            {
+                Console.WriteLine("Please input the IP of your wireless bridge device");
+                Properties.Settings.Default.IP = Console.ReadLine();
+            }
+
             // Process Command Line Arguments
             if (args.Length != 0)
             {
-                switch (args[0])
+                String arg = args[0].ToLower();
+                switch (arg)
                 {
-                    case       "allOff":
-                    case       "alloff": { UserCommands.AllOff(); return; }
+                    case     "alloff":     { UserCommands.AllOff(); break; }
 
-                    case        "allOn":
-                    case        "allon": { UserCommands.AllOn(); return; }
+                    case     "allon":      { UserCommands.AllOn(); break; }
 
-                    case     "brighten": { UserCommands.Brighten(); return; }
+                    case     "allwhite":   { UserCommands.AllWhite(); break; }
 
-                    case          "dim": { UserCommands.Dim(); return; }
+                    case     "brighten":   { UserCommands.Brighten(); break; }
 
-                    case    "group1off": { UserCommands.Group1Off(); return; }
-                    case    "group2off": { UserCommands.Group2Off(); return; }
-                    case    "group3off": { UserCommands.Group3Off(); return; }
-                    case    "group4off": { UserCommands.Group4Off(); return; }
+                    case     "dim":        { UserCommands.Dim(); break; }
 
-                    case         "test": { UserCommands.Test(); return; } // for testing experimental code
+                    case     "group1off":  { UserCommands.Group1Off(); break; }
+                    case     "group2off":  { UserCommands.Group2Off(); break; }
+                    case     "group3off":  { UserCommands.Group3Off(); break; }
+                    case     "group4off":  { UserCommands.Group4Off(); break; }
 
-                    case        "flash":
-                    case       "strobe":
-                    case        "blink": { UserCommands.StrobeMode(); return; }
+                    case     "group1on":  { UserCommands.Group1On(); break; }
+                    case     "group2on":  { UserCommands.Group2On(); break; }
+                    case     "group3on":  { UserCommands.Group3On(); break; }
+                    case     "group4on":  { UserCommands.Group4On(); break; }
 
-                    case       "fadeUp":
-                    case       "fadeup": { UserCommands.FadeUp(); return; }
+                    case     "test":       { UserCommands.Test(); break; } // for testing experimental code
 
-                    case     "fadeDown":
-                    case     "fadedown": { UserCommands.FadeDown(); return; }
+                    case     "flash":
+                    case     "strobe":
+                    case     "blink":      { UserCommands.StrobeMode(); break; }
 
-                    case   "wakeupcall": { UserCommands.WakeUpCall(); return; }
+                    case     "fadeup":     { UserCommands.FadeUp(); break; }
 
-                    default: { Console.WriteLine("I have no idea what you wanted me to do"); return; } // Tell the user we have no idea WTF they wanted
+                    case     "fadedown":   { UserCommands.FadeDown(); break; }
+
+                    case     "wakeupcall": { UserCommands.WakeUpCall(); break; }
+
+                    case     "rgb":        { if(args.Length>1)UserCommands.RGBColour(Convert.ToInt32(args[1])); break; }
+
+                    case     "disco":      { UserCommands.Disco(); break; }
+
+                    case     "discofast":  { UserCommands.DiscoSpeedUp(); break; }
+
+                    case     "discoslow":  { UserCommands.DiscoSpeedDown(); break; }
+
+                    case     "changeip":   { if(args.Length>1)Properties.Settings.Default.IP = args[1]; break; }
+
+                    case "--help": { Console.WriteLine("AllOff\t\tTurn off all lights\nAllOn\t\tTurn on all lights\nAllWhite\tTurn all lights to white\nBrighten\tTurn up brightness 1 step\nDim\t\tTurn down brightness 1 step\nGroup#Off\tTurn off group # lights\nGroup#On\tTurn on group # lights\nStrobe\t\tStrobe lights\nFadeUp\t\tFade lights up to full brightness\nFadeDown\t\tFade lights down to minimum brightness\nRGB ###\t\tSet light color to ### (between 0 and 255)\nDisco\t\tChange lights to next disco mode\nDiscoFast\tMake lights disco faster\nDiscoSlow\tMake lights disco slower\nChangeIP #\tChange bridge IP to #"); break; }
+
+                    default: { Console.WriteLine("Type --help for options."); break; }
                 }
             }
-            UserCommands.AllOn();
-            Console.WriteLine("There are input arguments required.  I really should put something here to explain them for you");
+            else
+            {
+                Console.WriteLine("Type --help for options.");
+            }
+
+            Properties.Settings.Default.Save();
+
+            return;
         }
     }
 }
