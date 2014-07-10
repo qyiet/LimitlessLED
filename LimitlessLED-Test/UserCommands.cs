@@ -60,6 +60,36 @@ namespace LimitlessLED_Test
             }
         }
 
+        /// <summary>
+        /// Turn all lights to the maximum brightness
+        /// </summary>
+        public static void AllMax()
+        {
+            AllOn();
+            RGBOn();
+            for (int i = 0; i < 13; i++) //13 just in case the bulbs miss a couple commands.
+            {
+                Brighten();
+                RGBBrighten();
+                Thread.Sleep(101);
+            }
+        }
+
+        /// <summary>
+        /// Turn all lights to the minimum brightness
+        /// </summary>
+        public static void AllMin()
+        {
+            AllOn();
+            RGBOn();
+            for (int i = 0; i < 13; i++) //13 just in case the bulbs miss a couple commands.
+            {
+                Dim();
+                RGBDim();
+                Thread.Sleep(101);
+            }
+        }
+
         public static void TempMax()
         {
             Console.WriteLine("Yellowest light you ever seen, coming right up!");
@@ -235,22 +265,29 @@ namespace LimitlessLED_Test
         /// </summary>
         public static void WakeUpCall(string timeString)
         {
-            if (timeString == "") timeString = DateTime.Now.ToString("hh:mm");
-            DateTime time = DateTime.Parse(timeString);
-            while (time.CompareTo(DateTime.Now) < 0)
+            DateTime now = DateTime.Now;
+            if (timeString == "") timeString = now.ToString("hh:mm:ss");
+            DateTime time;
+            int brightTime = int.Parse(ConfigurationManager.AppSettings["wakeDelay"]);
+            try
             {
-                time = time.AddDays(1);
+                time = DateTime.Parse(timeString);
             }
-            Console.Write("Wake up call at: ");
-            Console.WriteLine(time);
-            while (time.CompareTo(DateTime.Now) > 0)
+            catch (FormatException fe) { Console.WriteLine("Try entering the time you would like to wake up similar to this: 6:00am."); return; }
+            if (TimeSpan.FromMilliseconds(Math.Abs((time-now).TotalMilliseconds)) > TimeSpan.FromSeconds(1)) //If the difference is'nt more than a second, you probably meant now.
             {
-                Thread.Sleep(60000); //wait for a minute
+                while (time.CompareTo(now) < 0) //If it is in the past, move it to the future.
+                {
+                    time = time.AddDays(1);
+                }
+                Console.Write("Wake up call at: ");
+                Console.WriteLine(time);
+                Thread.Sleep(time - now); //wait until the specified wake up time.
             }
-            // Turn on White lights and then dim them to minimum as fast as possible
+            // Turn on White lights and then dim them to minimum after the delay set in the config file.
             AllOn();
-            Thread.Sleep(101);         
-            for (int i = 0; i < 10; i++)
+            Thread.Sleep(brightTime);
+            for (int i = 0; i < 13; i++) //13 just in case the bulbs miss a couple commands.
             {
                 Dim();
                 Thread.Sleep(101);
@@ -261,7 +298,7 @@ namespace LimitlessLED_Test
             Thread.Sleep(101);
             RGBPrevMode();
             Thread.Sleep(101);
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 13; i++) //13 just in case the bulbs miss a couple commands.
             {
                 RGBDim();
                 Thread.Sleep(101);

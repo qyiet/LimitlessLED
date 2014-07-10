@@ -13,19 +13,16 @@ namespace LimitlessLED_Test
             // Process Command Line Arguments
             if (args.Length != 0)
             {
-                switch (args[0])
+                switch (args[0].ToLower()) // case insensitive
                 {
-                    case       "allOff":
                     case       "alloff": { UserCommands.AllOff(); return; }
 
-                    case        "allOn":
                     case        "allon": { UserCommands.AllOn(); return; }
 
                     case     "brighten": { UserCommands.Brighten(); return; }
 
                     case          "dim": { UserCommands.Dim(); return; }
 
-                    case "allNightMode":
                     case "allnightmode": { UserCommands.AllNightMode(); return; }
 
                     case    "group1off": { UserCommands.Group1Off(); return; }
@@ -50,15 +47,16 @@ namespace LimitlessLED_Test
                     case       "strobe":
                     case        "blink": { UserCommands.StrobeMode(); return; }
 
-                    case       "fadeUp":
                     case       "fadeup": { UserCommands.FadeUp(); return; }
-
-                    case     "fadeDown":
                     case     "fadedown": { UserCommands.FadeDown(); return; }
+
+                    case       "allmax": { UserCommands.AllMax(); return; }
+                    case       "allmin": { UserCommands.AllMin(); return; }
 
                     case    "wakeupcall": 
                     {
-                        if (args.Length > 1) UserCommands.WakeUpCall(args[1]);
+                        if (args.Length > 2) UserCommands.WakeUpCall(args[1] + args[2]);
+                        else if (args.Length > 1) UserCommands.WakeUpCall(args[1]);
                         else UserCommands.WakeUpCall("");
                         return; 
                     }
