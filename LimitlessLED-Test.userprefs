@@ -1,0 +1,13 @@
+﻿<Properties StartupItem="LimitlessLED-Test/LimitlessLED-Test.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="LimitlessLED-Test/Program.cs">
+    <Files>
+      <File FileName="LimitlessLED-Test/UserCommands.cs" Line="24" Column="53" />
+      <File FileName="LimitlessLED-Test/Program.cs" Line="13" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
