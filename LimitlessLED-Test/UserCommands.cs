@@ -8,8 +8,12 @@ namespace LimitlessLED_Test
     class UserCommands
     {
         // Connect to bridge
+<<<<<<< HEAD
         static readonly string BridgeIpAddress = ConfigurationManager.AppSettings["ip"];
         static readonly UdpClient UdpClient = new UdpClient(BridgeIpAddress, 8899);
+=======
+        static readonly UdpClient UdpClient = new UdpClient(Properties.Settings.Default.IP, 8899);
+>>>>>>> pr/4
 
         /// <summary>
         /// Shortcut to send UDP commands to the wifi bridge
@@ -110,15 +114,15 @@ namespace LimitlessLED_Test
 
             // Ensure group one is on, and selected by the wifi bridge
             LedBridge(BridgeCommands.Group1On);
-            Thread.Sleep(150);
+            Thread.Sleep(101);
 
-            // Fade selected group down 10 steps  
-            for (int i = 1; i < 10; i++)
+            while (Properties.Settings.Default.currentBrightness > 2)
             {
-                Console.WriteLine("This is dimming level " + i);
-                LedBridge(BridgeCommands.BrightnessDown);
-                Thread.Sleep(1000);
-            } 
+                Console.WriteLine(Properties.Settings.Default.currentBrightness);
+                LedBridge(new byte[] { 0x4E, (byte)Properties.Settings.Default.currentBrightness, 0x55 });
+                Properties.Settings.Default.currentBrightness--;
+                Thread.Sleep(101);
+            }
         }
 
         /// <summary>
@@ -131,14 +135,14 @@ namespace LimitlessLED_Test
             
             // Ensure group one is on, and selected by the wifi bridge
             LedBridge(BridgeCommands.Group1On);
-            Thread.Sleep(150);
-       
-            // Fade selected group up 10 steps  
-            for (int i = 1; i < 10; i++)
+            Thread.Sleep(101);
+
+            while (Properties.Settings.Default.currentBrightness < 27)
             {
-                Console.WriteLine("This is dimming level " + (10 - i));
-                LedBridge(BridgeCommands.BrightnessUp);
-                Thread.Sleep(1000);
+                Console.WriteLine(Properties.Settings.Default.currentBrightness);
+                LedBridge(new byte[] { 0x4E, (byte)Properties.Settings.Default.currentBrightness, 0x55 });
+                Properties.Settings.Default.currentBrightness++;
+                Thread.Sleep(101);
             }
         }
 
@@ -158,14 +162,9 @@ namespace LimitlessLED_Test
             LedBridge(BridgeCommands.AllOn);
         }
 
-        /// <summary>
-        /// Switch all white lights to low power mode
-        /// </summary>
-        public static void AllNightMode()
+        public static void AllWhite()
         {
-            LedBridge(BridgeCommands.AllOff);
-            Thread.Sleep(101);  // aparently 100ms isn't enough, I need 101 
-            LedBridge(BridgeCommands.AllNight);
+            LedBridge(BridgeCommands.AllWhite);
         }
 
         /// <summary>
@@ -173,7 +172,8 @@ namespace LimitlessLED_Test
         /// </summary>
         public static void Brighten()
         {
-            LedBridge(BridgeCommands.BrightnessUp);
+            Properties.Settings.Default.currentBrightness++;
+            LedBridge(new byte[] { 0x4E, (byte)Properties.Settings.Default.currentBrightness, 0x55 });
         }
 
         /// <summary>
@@ -181,51 +181,8 @@ namespace LimitlessLED_Test
         /// </summary>
         public static void Dim()
         {
-            LedBridge(BridgeCommands.BrightnessDown);
-        }
-
-        /// <summary>
-        /// Set Group 4 to Night mode 
-        /// (takes 100ms as it requires 2 commands to be sent)
-        /// </summary>       
-        public static void Group4NightMode()
-        {
-            LedBridge(BridgeCommands.Group4Off);
-            Thread.Sleep(101);
-            LedBridge(BridgeCommands.Group4Night);
-        }
-
-        /// <summary>
-        /// Set Group 3 to Night mode 
-        /// (takes 100ms as it requires 2 commands to be sent)
-        /// </summary>
-        public static void Group3NightMode()
-        {
-            LedBridge(BridgeCommands.Group3Off);
-            Thread.Sleep(101);
-            LedBridge(BridgeCommands.Group3Night);
-        }
-
-        /// <summary>
-        /// Set Group 2 to Night mode 
-        /// (takes 100ms as it requires 2 commands to be sent)
-        /// </summary>
-        public static void Group2NightMode()
-        {
-            LedBridge(BridgeCommands.Group2Off);
-            Thread.Sleep(101);
-            LedBridge(BridgeCommands.Group2Night);
-        }
-
-        /// <summary>
-        /// Set Group 1 to Night mode 
-        /// (takes 100ms as it requires 2 commands to be sent)
-        /// </summary>
-        public static void Group1NightMode()
-        {
-            LedBridge(BridgeCommands.Group1Off);
-            Thread.Sleep(101);
-            LedBridge(BridgeCommands.Group1Night);
+            Properties.Settings.Default.currentBrightness--;
+            LedBridge(new byte[] { 0x4E, (byte)Properties.Settings.Default.currentBrightness, 0x55 });
         }
 
         /// <summary>
@@ -235,7 +192,7 @@ namespace LimitlessLED_Test
         {
             LedBridge(BridgeCommands.Group1Off);
         }
-        
+
         /// <summary>
         /// Turn group 2 off
         /// </summary>
@@ -243,7 +200,7 @@ namespace LimitlessLED_Test
         {
             LedBridge(BridgeCommands.Group2Off);
         }
-        
+
         /// <summary>
         /// Turn group 3 off
         /// </summary>
@@ -251,13 +208,45 @@ namespace LimitlessLED_Test
         {
             LedBridge(BridgeCommands.Group3Off);
         }
-        
+
         /// <summary>
         /// Turn group 4 off
         /// </summary>
         public static void Group4Off()
         {
-            LedBridge(BridgeCommands.Group4Off);
+            LedBridge(BridgeCommands.Group4On);
+        }
+
+        /// <summary>
+        /// Turn group 1 off
+        /// </summary>
+        public static void Group1On()
+        {
+            LedBridge(BridgeCommands.Group1On);
+        }
+
+        /// <summary>
+        /// Turn group 2 off
+        /// </summary>
+        public static void Group2On()
+        {
+            LedBridge(BridgeCommands.Group2On);
+        }
+
+        /// <summary>
+        /// Turn group 3 off
+        /// </summary>
+        public static void Group3On()
+        {
+            LedBridge(BridgeCommands.Group3On);
+        }
+
+        /// <summary>
+        /// Turn group 4 off
+        /// </summary>
+        public static void Group4On()
+        {
+            LedBridge(BridgeCommands.Group4On);
         }
 
         /// <summary>
@@ -294,13 +283,13 @@ namespace LimitlessLED_Test
             }
 
             // Turn on the RGB Lights, set them to white and then dim them to minimum as fast as possible
-            RGBOn();
+            AllOn();
             Thread.Sleep(101);
-            RGBPrevMode();
+            Disco();
             Thread.Sleep(101);
             for (int i = 0; i < 13; i++) //13 just in case the bulbs miss a couple commands.
             {
-                RGBDim();
+                Dim();
                 Thread.Sleep(101);
             }
                     
@@ -312,30 +301,13 @@ namespace LimitlessLED_Test
                 Thread.Sleep(101);
                 Brighten();
                 Thread.Sleep(101);
-                RGBOn();
+                AllOn();
                 Thread.Sleep(101);
-                RGBPrevMode();
+                Disco();
                 Thread.Sleep(101);
-                RGBBrighten();
+                Brighten();
             }
         }
-
-        /// <summary>
-        /// Turn on RGB LED Bulbs
-        /// </summary>
-        public static void RGBOn()
-        {
-            LedBridge(BridgeCommands.RGBOn);
-        }
-
-        /// <summary>
-        /// Turn off the RGB Bulbs
-        /// </summary>
-        public static void RGBOff()
-        {
-            LedBridge(BridgeCommands.RGBOff);
-        }
-
 
         /// <summary>
         /// Will set the RGB bulbs to the colour specified between 0 and 255
@@ -344,64 +316,33 @@ namespace LimitlessLED_Test
         public static void RGBColour(int colour)
         {
             // Set invalid colours to 0
-            if (colour < 0 || colour > 256) { colour = 0; } 
+            colour = (colour > 0 && colour < 256) ? colour : 0;
             
-            // Get generic colour command
-            var hexCommand = (byte[])BridgeCommands.RGBColour.Clone();
-           
-            // Set to requested colour
-            hexCommand[1] = (byte)colour;
-            
-            // Send command to bridge;
-            UdpClient.Send(hexCommand, 3);
+            LedBridge(new byte[] { 0x40, (byte)colour, 0x55 });
         }
         
         /// <summary>
         /// Set Disco Mode to next mode
         /// </summary>
-        public static void RGBNextMode()
+        public static void Disco()
         {
-            LedBridge(BridgeCommands.RGBDiscoNext);
-        }
-
-        /// <summary>
-        /// Set Disco Mode to previous mode
-        /// </summary>
-        public static void RGBPrevMode()
-        {
-            LedBridge(BridgeCommands.RGBDiscoLast);
-        }
-
-        /// <summary>
-        /// Brighten RGB Lights
-        /// </summary>
-        public static void RGBBrighten()
-        {
-            LedBridge(BridgeCommands.RGBBrightnessUp);
-        }
-
-        /// <summary>
-        /// Dim the RGB Lights
-        /// </summary>
-        public static void RGBDim()
-        {
-            LedBridge(BridgeCommands.RGBBrightnessDown);
+            LedBridge(BridgeCommands.DiscoNext);
         }
 
         /// <summary>
         /// Increase the speed of the Colour LED's disco mode
         /// </summary>
-        public static void RGBSpeedUp()
+        public static void DiscoSpeedUp()
         {
-            LedBridge(BridgeCommands.RGBSpeedUp);
+            LedBridge(BridgeCommands.DiscoSpeedUp);
         }
 
         /// <summary>
         /// Decrease the speed of the Colour LED's Disco mode
         /// </summary>
-        public static void RGBSpeedDown()
+        public static void DiscoSpeedDown()
         {
-            LedBridge(BridgeCommands.RGBSpeedDown);
+            LedBridge(BridgeCommands.DiscoSpeedDown);
         }
 
     }
