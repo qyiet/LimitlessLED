@@ -8,12 +8,7 @@ namespace LimitlessLED_Test
     class UserCommands
     {
         // Connect to bridge
-<<<<<<< HEAD
-        static readonly string BridgeIpAddress = ConfigurationManager.AppSettings["ip"];
-        static readonly UdpClient UdpClient = new UdpClient(BridgeIpAddress, 8899);
-=======
         static readonly UdpClient UdpClient = new UdpClient(Properties.Settings.Default.IP, 8899);
->>>>>>> pr/4
 
         /// <summary>
         /// Shortcut to send UDP commands to the wifi bridge

@@ -19,10 +19,6 @@ namespace LimitlessLED_Test
             // Process Command Line Arguments
             if (args.Length != 0)
             {
-<<<<<<< HEAD
-                switch (args[0].ToLower()) // case insensitive
-=======
-<<<<<<< HEAD
                 String arg = args[0].ToLower();
                 switch (arg)
                 {
@@ -37,7 +33,6 @@ namespace LimitlessLED_Test
                     case     "dim":        { UserCommands.Dim(); break; }
 
 				switch (args[0].ToLower()) // case insensitive
->>>>>>> pr/4
                 {
                     case       "alloff": { UserCommands.AllOff(); return; }
 
@@ -53,10 +48,7 @@ namespace LimitlessLED_Test
                     case     "group3on":  { UserCommands.Group3On(); break; }
                     case     "group4on":  { UserCommands.Group4On(); break; }
 
-<<<<<<< HEAD
-=======
                     case     "test":       { UserCommands.Test(); break; } // for testing experimental code
->>>>>>> pr/4
                     case "allnightmode": { UserCommands.AllNightMode(); return; }
 
                     case     "flash":
@@ -80,16 +72,6 @@ namespace LimitlessLED_Test
                         return; 
                     }
 
-<<<<<<< HEAD
-                    case        "flash": 
-                    { 
-                        if(args.Length>1) UserCommands.Flash(args[1]);
-                        else UserCommands.Flash("3");
-                        return; 
-                    }
-
-=======
->>>>>>> pr/4
                     case       "strobe":
                     case        "blink": { UserCommands.StrobeMode(); return; }
 
@@ -107,15 +89,12 @@ namespace LimitlessLED_Test
                         return; 
                     }
                     case       "tempmax": { UserCommands.TempMax(); return; }
-<<<<<<< HEAD
-=======
 
                     case     "discoslow":  { UserCommands.DiscoSpeedDown(); break; }
 
                     case     "changeip":   { if(args.Length>1)Properties.Settings.Default.IP = args[1]; break; }
 
                     case "--help": { Console.WriteLine("AllOff\t\tTurn off all lights\nAllOn\t\tTurn on all lights\nAllWhite\tTurn all lights to white\nBrighten\tTurn up brightness 1 step\nDim\t\tTurn down brightness 1 step\nGroup#Off\tTurn off group # lights\nGroup#On\tTurn on group # lights\nStrobe\t\tStrobe lights\nFadeUp\t\tFade lights up to full brightness\nFadeDown\t\tFade lights down to minimum brightness\nRGB ###\t\tSet light color to ### (between 0 and 255)\nDisco\t\tChange lights to next disco mode\nDiscoFast\tMake lights disco faster\nDiscoSlow\tMake lights disco slower\nChangeIP #\tChange bridge IP to #"); break; }
->>>>>>> pr/4
 
             //Console.WriteLine("There are input arguments required.  Some are explained below:");
             //Console.WriteLine("allon: turn everything on (with the last settings).");
@@ -132,19 +111,6 @@ namespace LimitlessLED_Test
                     default: { Console.WriteLine("Type --help for options."); break; }
                 }
             }
-<<<<<<< HEAD
-            Console.WriteLine("There are input arguments required.  Some are explained below:");
-            Console.WriteLine("allon: turn everything on (with the last settings).");
-            Console.WriteLine("alloff: turn everything off (with the last settings).");
-            Console.WriteLine("brighten: Increase the brightness one step (for the last group).");
-            Console.WriteLine("dim: Decrease the brightness one step (for the last group).");
-            Console.WriteLine("fadedown: Slow fade group one to minimum.");
-            Console.WriteLine("fadeup: Slow fade group one to maximum.");
-            Console.WriteLine("--------Fun stuff:--------");
-            Console.WriteLine("wakeupcall: Turns on all lights to minimum brightness, then slowly increases the brightness over 10 min");
-            Console.WriteLine("blink: blinks the lights really fast.");
-            Console.WriteLine("flash n: causes the lights to flash 3 times.");
-=======
 
             else
             {
@@ -155,7 +121,6 @@ namespace LimitlessLED_Test
 
             return;
 
->>>>>>> pr/4
         }
     }
 }
