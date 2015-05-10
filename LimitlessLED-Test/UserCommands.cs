@@ -8,7 +8,6 @@ namespace LimitlessLED_Test
     class UserCommands
     {
         // Connect to bridge
-        static readonly string BridgeIpAddress = ConfigurationManager.AppSettings["ip"];
         static readonly UdpClient UdpClient = new UdpClient(Properties.Settings.Default.IP, 8899);
 
         /// <summary>
@@ -29,7 +28,7 @@ namespace LimitlessLED_Test
             Thread.Sleep(100);
             //RGBOff();
 
-            WakeUpCall();
+            WakeUpCall("");
         }
 
         /// <summary>
@@ -37,7 +36,7 @@ namespace LimitlessLED_Test
         /// Flash the lights till a key is pressed 
         /// </summary>
         public static void StrobeMode()
-        {   
+        {
             Console.WriteLine("Starting Strobe mode, press any key to stop");
             while (!Console.KeyAvailable)
             {
@@ -45,6 +44,58 @@ namespace LimitlessLED_Test
                 Thread.Sleep(100);
                 LedBridge(BridgeCommands.Group1On);
                 Thread.Sleep(100);
+            }
+        }
+
+        public static void Flash(string times)
+        {
+            Console.WriteLine("Flashy Flashy!");
+            for (int i = 0; i < int.Parse(times); i++)
+            {
+                LedBridge(BridgeCommands.AllOff);
+                Thread.Sleep(400);
+                LedBridge(BridgeCommands.AllOn);
+                Thread.Sleep(400);
+            }
+        }
+
+        /// <summary>
+        /// Turn all lights to the maximum brightness
+        /// </summary>
+        public static void AllMax()
+        {
+            AllOn();
+            RGBOn();
+            for (int i = 0; i < 13; i++) //13 just in case the bulbs miss a couple commands.
+            {
+                Brighten();
+                RGBBrighten();
+                Thread.Sleep(101);
+            }
+        }
+
+        /// <summary>
+        /// Turn all lights to the minimum brightness
+        /// </summary>
+        public static void AllMin()
+        {
+            AllOn();
+            RGBOn();
+            for (int i = 0; i < 13; i++) //13 just in case the bulbs miss a couple commands.
+            {
+                Dim();
+                RGBDim();
+                Thread.Sleep(101);
+            }
+        }
+
+        public static void TempMax()
+        {
+            Console.WriteLine("Yellowest light you ever seen, coming right up!");
+            for (int i = 0; i < 10; i++)
+            {
+                LedBridge(BridgeCommands.ColorTempUp);
+                Thread.Sleep(30);
             }
         }
 
@@ -196,12 +247,31 @@ namespace LimitlessLED_Test
         /// <summary>
         /// Turns on all lights to minimum brightness, then slowly increases the brightness over 10 min
         /// </summary>
-        public static void WakeUpCall()
+        public static void WakeUpCall(string timeString)
         {
-            // Turn on White lights and then dim them to minimum as fast as possible
+            DateTime now = DateTime.Now;
+            if (timeString == "") timeString = now.ToString("hh:mm:ss");
+            DateTime time;
+            int brightTime = int.Parse(ConfigurationManager.AppSettings["wakeDelay"]);
+            try
+            {
+                time = DateTime.Parse(timeString);
+            }
+            catch (FormatException fe) { Console.WriteLine("Try entering the time you would like to wake up similar to this: 6:00am."); return; }
+            if (TimeSpan.FromMilliseconds(Math.Abs((time-now).TotalMilliseconds)) > TimeSpan.FromSeconds(1)) //If the difference is'nt more than a second, you probably meant now.
+            {
+                while (time.CompareTo(now) < 0) //If it is in the past, move it to the future.
+                {
+                    time = time.AddDays(1);
+                }
+                Console.Write("Wake up call at: ");
+                Console.WriteLine(time);
+                Thread.Sleep(time - now); //wait until the specified wake up time.
+            }
+            // Turn on White lights and then dim them to minimum after the delay set in the config file.
             AllOn();
-            Thread.Sleep(101);         
-            for (int i = 0; i < 10; i++)
+            Thread.Sleep(brightTime);
+            for (int i = 0; i < 13; i++) //13 just in case the bulbs miss a couple commands.
             {
                 Dim();
                 Thread.Sleep(101);
@@ -212,7 +282,7 @@ namespace LimitlessLED_Test
             Thread.Sleep(101);
             Disco();
             Thread.Sleep(101);
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 13; i++) //13 just in case the bulbs miss a couple commands.
             {
                 Dim();
                 Thread.Sleep(101);
@@ -269,5 +339,6 @@ namespace LimitlessLED_Test
         {
             LedBridge(BridgeCommands.DiscoSpeedDown);
         }
+
     }
 }
